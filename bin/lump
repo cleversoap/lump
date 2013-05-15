@@ -1,3 +1,4 @@
 #!/usr/bin/env ruby
 
-puts "Hello Lump" 
+require 'lump'
+Lump.start
