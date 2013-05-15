@@ -9,5 +9,6 @@ Gem::Specification.new do |s|
 	s.files       = ['lib/lump.rb']
 	s.homepage    = 'https://github.com/cleversoap/lump'
 	s.license     = 'MIT'
+	s.executables << 'lump'
 end
 
