@@ -18,4 +18,8 @@ class Lump < Thor
 		puts "Building it in path: " + path
 	end
 
+	desc "list", "Lists all available lumps"
+	def list
+	end
+
 end
