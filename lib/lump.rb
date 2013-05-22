@@ -2,6 +2,11 @@ require 'thor'
 
 class Lump < Thor
 
+	autoload :Actions, 'lump/actions'
+
+	include Thor::Actions
+	include Lump::Actions
+
 	desc "new NAME", "Create a new lump template"
 	def new(name)
 		puts "Creating new template: " + name

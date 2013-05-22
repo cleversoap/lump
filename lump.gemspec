@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 	s.description = 'Project directory temple renderer'
 	s.authors     = ['cleversoap']
 	s.email       = 'clever@cleversoap.com'
-	s.files       = ['lib/lump.rb']
+	s.files       = ['lib/lump.rb', 'lib/lump/actions.rb']
 	s.homepage    = 'https://github.com/cleversoap/lump'
 	s.license     = 'MIT'
 	s.executables << 'lump'
