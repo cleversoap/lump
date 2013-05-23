@@ -18,11 +18,20 @@ class Lump < Thor
     def make(name, path='.')
         puts "Building template from: " + name
         puts "Building it in path: " + path
+        # Load the lump package
         begin
             project, manifest, templates = load(name)
             puts project, manifest, templates
         rescue Exception => e
             puts e.message
+        else
+            # Assign manifest values to the project
+            if manifest
+                project.title = manifest.title 
+                project.description = manifest.description
+                project.skipped_files = manifest.skipped_files
+                project.removed_files = manifest.removed_files
+            end
         end
     end
 
