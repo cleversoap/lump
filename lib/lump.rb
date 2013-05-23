@@ -19,7 +19,8 @@ class Lump < Thor
         puts "Building template from: " + name
         puts "Building it in path: " + path
         begin
-            p, d = load(name)
+            project, manifest, templates = load(name)
+            puts project, manifest, templates
         rescue Exception => e
             puts e.message
         end
