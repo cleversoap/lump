@@ -1,27 +1,43 @@
 class Lump
 
+    require 'yaml'
+
     module Actions
 
         # Begins loading a lump project directory
         def load(name)
 
             # Check if the lump directory exists
-            target = File.expand_path('~/.lump')
-            raise "Unable to find lump (~/.lump) directory" unless File.directory? target
+            target_dir = File.expand_path('~/.lump')
+            raise "Unable to find lump (#{target_dir}) directory" unless File.directory? target_dir
 
             # Check if the desired lump project directory exists
-            target = "#{target}/#{name}"
-            raise "Unable to find the project directory (#{target})" unless File.directory? target 
+            target_dir = "#{target_dir}/#{name}"
+            raise Thor::Error, "Unable to find the project directory (#{target_dir})" unless File.directory? target_dir 
 
             # Check if a project file can be found
-            project_file = "#{target}/lump.rb"
-            raise "Unable to find lump configuration (#{target}/lump.rb)" unless File.exists? project_file 
+            project_file = "#{target_dir}/lump.rb"
+            raise Thor::Error, "Unable to find lump configuration (#{target_dir}/lump.rb)" unless File.exists? project_file 
+
+            # Check if the files directory can be found
+            template_dir = "#{target_dir}/template"
+            raise Thor::Error, "Unable to find templates directory (#{template_dir})" unless File.directory? template_dir
+
+            # Check if the manifest file can be found
+            manifest_file = "#{target_dir}/manifest.yml"
+            raise Thor::Error, "Unable to find manifest file (#{manifest_file})" unless File.exists? manifest_file
 
             # Load the project file
-            project = eval(File.open(project_file).read) 
+            project_file = eval(File.open(project_file).read) 
 
-            # Return the project object and project files directory
-            return project
+            # Read the manifest file
+            manifest_file = YAML.load_file(manifest_file)
+
+            # Load the template directory
+            template_dir = Dir.new(template_dir)
+
+            # Return the project object, manifest file, template directory
+            return project_file, manifest_file, template_dir
 
         end
 
