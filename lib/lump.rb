@@ -18,6 +18,11 @@ class Lump < Thor
     def make(name, path='.')
         puts "Building template from: " + name
         puts "Building it in path: " + path
+        begin
+            p, d = load(name)
+        rescue Exception => e
+            puts e.message
+        end
     end
 
     desc "list", "Lists all available lumps"
