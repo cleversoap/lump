@@ -27,10 +27,10 @@ class Lump < Thor
         else
             # Assign manifest values to the project
             if manifest
-                project.title = manifest.title 
-                project.description = manifest.description
-                project.skipped_files = manifest.skipped_files
-                project.removed_files = manifest.removed_files
+                project.title = manifest["title"] 
+                project.description = manifest["description"]
+                project.skipped_files = manifest["skipped_files"]
+                project.removed_files = manifest["removed_files"]
             end
         end
     end
