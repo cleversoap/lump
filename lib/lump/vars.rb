@@ -54,4 +54,34 @@ class Lump
 
     end
 
+    # Class for processed variable entries that will used to query for values 
+    class Vars
+        class Entry
+
+            attr_reader :type
+            attr_reader :default
+            attr_reader :prompt
+            attr_reader :description
+            attr_reader :action
+
+            def initialize(type, default = nil, meta = nil, action = nil)
+                @type        = type
+                @default     = default.class == Symbol ? nil : default
+                @prompt      = meta == nil ? nil : meta[:prompt]
+                @description = meta == nil ? nil : meta[:description]
+                @action      = action
+            end
+
+            def to_s
+                {:type => @type,
+                    :default => @default,
+                    :prompt => @prompt,
+                    :description => @description,
+                    :action => @action}.to_s
+            end
+
+        end
+    end
+
+
 end

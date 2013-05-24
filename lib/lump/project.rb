@@ -15,6 +15,9 @@ class Lump
         # Files that won't be processed and will not be copied
         attr_accessor :removed_files
 
+        # Variables
+        attr_accessor :vars
+
         def initialize
             @skipped_files = []
             @removed_files = []

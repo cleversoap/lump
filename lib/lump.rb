@@ -26,12 +26,16 @@ class Lump < Thor
             puts e.message
         else
             # Assign manifest values to the project
+            # TODO: Filter and make this optional
             if manifest
                 project.title = manifest["title"] 
                 project.description = manifest["description"]
                 project.skipped_files = manifest["skipped_files"]
                 project.removed_files = manifest["removed_files"]
             end
+
+            # Formalise all the elements in the project
+            project.vars = process_vars(project.vars) 
         end
     end
 

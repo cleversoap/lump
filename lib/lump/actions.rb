@@ -1,6 +1,7 @@
 class Lump
 
     require 'yaml'
+    require 'ostruct'
 
     module Actions
 
@@ -42,10 +43,37 @@ class Lump
         end
 
         # Processes the project object
-        def process_project(proj)
-            # Thor actually has some built in functionality with .tt
-            # files to detect templates, this may or may not be a good
-            # idea to make use of
+        def process_vars(vars)
+            result = OpenStruct.new
+            vars.each_pair do |k,v|
+
+                #puts "#{k} -> #{v}"
+
+                # Get any meta data if it exists
+                m = vars.get_meta(k)
+                p = vars.get_proc(k)
+
+                result[k] = case v
+
+                            when :list, Array
+                                Vars::Entry.new(:list, v, m, p)
+
+                            when :number, Fixnum, Float
+                                Vars::Entry.new(:number, v, m, p)
+
+                            when :string
+                                Vars::Entry.new(:string, v, m, p)
+
+                            when :bool, TrueClass, FalseClass
+                                Vars::Entry.new(:bool, v, m, p)
+
+                            when Group
+                                v.vars = process_vars(v.vars)
+                                v
+                            end
+
+            end
+            return result
         end
 
     end
